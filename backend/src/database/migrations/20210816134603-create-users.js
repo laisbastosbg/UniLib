@@ -48,7 +48,7 @@ module.exports = {
         allowNUll: true,
       },
       profile: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM('administrador', 'bibliotecario'),
         allowNull: false, 
       },
       created_at: {
