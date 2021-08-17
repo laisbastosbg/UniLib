@@ -9,7 +9,7 @@ class Book extends Model {
         publisher: DataTypes.STRING,
         synopsis: DataTypes.STRING,
         edition: DataTypes.STRING,
-        ISBN: DataTypes.STRING,
+        isbn: DataTypes.STRING,
       },
       {
         sequelize,

@@ -1,9 +1,9 @@
 const express = require('express');
 
-const TestController = require('../controllers/TestController');
+const booksRouter = require('./books.routes')
 
 const routes = express.Router();
 
-routes.get('/test', TestController.get);
+routes.use('/books', booksRouter);
 
 module.exports = routes;

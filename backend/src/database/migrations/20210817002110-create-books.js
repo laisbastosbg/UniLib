@@ -34,7 +34,7 @@ module.exports = {
         allowNull: true,
         unique: true
       },
-      ISBN: {
+      isbn: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
