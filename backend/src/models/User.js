@@ -21,6 +21,10 @@ class User extends Model {
       }
     );
   }
+
+  static associate(models) {
+    this.hasMany(models.Loan)
+  }
 }
 
 module.exports = User;

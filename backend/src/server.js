@@ -11,4 +11,4 @@ app.options('*', cors());
 app.use(express.json());
 app.use(routes)
 
-app.listen(3003);
+app.listen(3003, () => console.log("Server listening on port 3003"));
