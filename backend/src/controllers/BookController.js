@@ -53,13 +53,6 @@ module.exports = {
     return res.json(books);
   },
 
-  async getById(req, res) {
-    const { id } = req.params;
-    const book = await Book.findByPk(id);
-
-    return res.status(200).json(book);
-  },
-
   async store(req, res) {
     try {
       const t = await sequelize.transaction();
@@ -68,9 +61,9 @@ module.exports = {
           title,
           author,
           publisher,
-          synospsis,
+          synopsis,
           edition,
-          ISBN
+          isbn
       } = req.body;
 
 
@@ -79,9 +72,9 @@ module.exports = {
           title,
           author,
           publisher,
-          synospsis,
+          synopsis,
           edition,
-          ISBN
+          isbn
         },
         {
           transaction: t,
@@ -97,34 +90,28 @@ module.exports = {
   },
 
   async update(req, res) {
+    const { id } = req.params;
+
     try {
       const t = await sequelize.transaction();
     
-      const { id } = req.params;
-
       const {
           title,
           author,
           publisher,
-          synospsis,
+          synopsis,
           edition,
-          ISBN
+          isbn
       } = req.body;
-
-      var book = await Book.findByPk(id);
-
-      if (!book) {
-        return res.status(404).json('Group not found');
-      }
 
       const updatedBook = await Book.update(
         {
           title,
           author,
           publisher,
-          synospsis,
+          synopsis,
           edition,
-          ISBN
+          isbn
         },
         {
           where: {
@@ -136,9 +123,11 @@ module.exports = {
         },
       );
 
+      const book = await Book.findByPk(id);
+
       t.commit();
 
-      return res.status(200).json(updatedBook);
+      return res.status(200).json(book);
     } catch (error) {
       return res.status(500).json(error.message);
     }
@@ -150,13 +139,7 @@ module.exports = {
 
       const { id } = req.params;
 
-      const book = await Book.findByPk(id);
-
-      if (!book) {
-        return res.status(404).json('Group not found');
-      }
-
-      await GBoup.destroy(
+      await Book.destroy(
         {
           where: {
             id,
@@ -172,9 +155,11 @@ module.exports = {
       const _book = await Book.findByPk(id);
 
       if (!_book) {
-        return res.status(204).json('success');
+        return res.status(204).send();
       } else {
-        return res.status(500).json('error');
+        return res.status(500).json({
+          error: "Algo deu errado"
+        });
       }
 
       

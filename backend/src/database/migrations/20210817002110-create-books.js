@@ -12,32 +12,26 @@ module.exports = {
       title: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
       },
       author: {
         type: Sequelize.STRING,
         allowNull: true,
-        unique: true
       },
       publisher: {
         type: Sequelize.STRING,
         allowNull: true,
-        unique: true
       },
       synopsis: {
         type: Sequelize.STRING,
         allowNull: true,
-        unique: true
       },
       edition: {
         type: Sequelize.STRING,
         allowNull: true,
-        unique: true
       },
       isbn: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
       },
       created_at: {
         type: Sequelize.DATE,

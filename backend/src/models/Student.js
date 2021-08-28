@@ -17,6 +17,10 @@ class Student extends Model {
       }
     );
   }
+
+  static associate(models) {
+    this.hasMany(models.Loan)
+  }
 }
 
 module.exports = Student;

@@ -12,12 +12,10 @@ module.exports = {
       estimated_return_date: {
         type: Sequelize.DATE,
         allowNull: false,
-        unique: true
       },
       return_date: {
         type: Sequelize.DATE,
         allowNull: false,
-        unique: true
       },
       user_id: {
         type: Sequelize.INTEGER,

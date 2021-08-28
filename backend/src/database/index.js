@@ -11,8 +11,11 @@ const connection = new Sequelize(dbConfig);
 User.init(connection);
 Book.init(connection);
 Student.init(connection);
-Loan.init(connection)
+Loan.init(connection);
 
+User.associate(connection.models);
+Book.associate(connection.models);
+Student.associate(connection.models);
 Loan.associate(connection.models);
 
 module.exports = connection;
