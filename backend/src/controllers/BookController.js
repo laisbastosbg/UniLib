@@ -53,6 +53,12 @@ module.exports = {
     return res.json(books);
   },
 
+  async getById(id) {
+    const book = await Book.findByPk(id);
+
+    return book;
+  },
+
   async store(req, res) {
     try {
       const t = await sequelize.transaction();

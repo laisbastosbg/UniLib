@@ -3,10 +3,10 @@
 ## Requisitos
 
 ### Usuários
-- [ ] Deve ser possível criar usuários
-- [ ] Deve ser possível listar os usuários criados
-- [ ] Deve ser possível atualizar os dados de um usuário
-- [ ] Deve ser possível deletar um usuário
+- [x] Deve ser possível criar usuários
+- [x] Deve ser possível listar os usuários criados
+- [x] Deve ser possível atualizar os dados de um usuário
+- [x] Deve ser possível deletar um usuário
 - [ ] Deve ser possível fazer autenticação de usuário
 
 ### Livros
@@ -30,8 +30,10 @@
 ## Regras de negócio
 
 - [ ] Um usuário bibliotecário não deve ser capaz de cadastrar novos usuários
-- [ ] Não deve ser possível atualizar os dados de um usuário que não existe
-- [ ] Não deve ser possível deletar um usuário que não existe
+- [x] Não deve ser possível atualizar os dados de um usuário que não existe
+- [x] Não deve ser possível deletar um usuário que não existe
+- [x] Não dever ser possível cadastrar mais de um usuário com o mesmo login
+- [x] Não dever ser possível cadastrar mais de um usuário com o mesmo cpf
 - [ ] Não deve ser possível atualizar os dados de um livro que não existe
 - [x] Não deve ser possível deletar um livro que não existe
 - [x] Não deve ser possível atualizar os dados de um aluno que não existe
