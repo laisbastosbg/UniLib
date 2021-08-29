@@ -22,10 +22,10 @@
 - [x] Deve ser possível deletar um aluno
 
 ### Empréstimos
-- [ ] Deve ser possível criar empréstimos
-- [ ] Deve ser possível listar os empréstimos criados
-- [ ] Deve ser possível atualizar os dados de um empréstimo
-- [ ] Deve ser possível deletar um empréstimo
+- [x] Deve ser possível criar empréstimos
+- [x] Deve ser possível listar os empréstimos criados
+- [x] Deve ser possível atualizar os dados de um empréstimo
+- [x] Deve ser possível deletar um empréstimo
 
 ## Regras de negócio
 
@@ -38,5 +38,5 @@
 - [x] Não deve ser possível deletar um livro que não existe
 - [x] Não deve ser possível atualizar os dados de um aluno que não existe
 - [x] Não deve ser possível deletar um aluno que não existe
-- [ ] Não deve ser possível atualizar os dados de um empréstimo que não existe
-- [ ] Não deve ser possível deletar um empréstimo que não existe
+- [x] Não deve ser possível atualizar os dados de um empréstimo que não existe
+- [x] Não deve ser possível deletar um empréstimo que não existe

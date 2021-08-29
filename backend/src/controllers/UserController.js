@@ -180,7 +180,7 @@ module.exports = {
 
       return response.status(204).send();
     } catch (error) {
-      return res.status(500).json({
+      return response.status(500).json({
         error: "Algo deu errado",
         description: error.message
       });

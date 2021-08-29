@@ -12,7 +12,6 @@ class User extends Model {
         phone_number: DataTypes.STRING,
         password: DataTypes.STRING,
         birthdate: DataTypes.DATE,
-        admission_date: DataTypes.DATE,
         profile: DataTypes.ENUM('administrador', 'bibliotecario'),
       },
       {

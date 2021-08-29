@@ -22,7 +22,7 @@ module.exports = {
         allowNull: true,
       },
       synopsis: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(1023),
         allowNull: true,
       },
       edition: {
