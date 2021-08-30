@@ -28,9 +28,21 @@ async function checkIfUsernameIsAvailable(request, response, next) {
   next();
 }
 
+async function checkIfUserHasPermission(request, response, next) {
+  const { login } = request.headers;
+
+  const user = await UserController.getByLogin(login);
+
+  if (user.profile != "administrador") return response.status(404).json({
+    error: "Você não tem permissão para acessar essa rota"
+  });
+
+  next();
+}
+
 usersRouter.get('/', UserController.index);
 
-usersRouter.post('/', checkIfUsernameIsAvailable, UserController.store);
+usersRouter.post('/', checkIfUsernameIsAvailable, checkIfUserHasPermission, UserController.store);
 
 usersRouter.put('/:id', checkIfUserExists, UserController.update);
 
