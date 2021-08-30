@@ -4,7 +4,7 @@ const moment = require('moment')
 
 const Loan = require('../models/Loan')
 
-module.exports = {
+class LoanController {
   async index(req, res) {
     const {
       student,
@@ -34,13 +34,13 @@ module.exports = {
     });
 
     return res.json(loans);
-  },
+  }
 
   async getById(id) {
     const loan = await Loan.findByPk(id);
 
     return loan;
-  },
+  }
 
   async store(req, res) {
     try {
@@ -74,7 +74,7 @@ module.exports = {
     } catch (error) {
       return res.status(500).json(error.message);
     }
-  },
+  }
 
   async update(req, res) {
     try {
@@ -114,7 +114,7 @@ module.exports = {
     } catch (error) {
       return res.status(500).json(error.message);
     }
-  },
+  }
 
   async setReturn(req, res) {
 
@@ -147,7 +147,7 @@ module.exports = {
     } catch (error) {
       return res.status(500).json(error.message);
     }
-  },
+  }
 
   async delete(req, res) {
     try {
@@ -182,5 +182,7 @@ module.exports = {
     } catch (error) {
       return res.status(500).json(error.message);
     }
-  },
+  }
 };
+
+module.exports = new LoanController();

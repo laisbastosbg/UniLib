@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 
 const Book = require('../models/Book')
 
-module.exports = {
+class BookController {
   async index(req, res) {
     const {
       title,
@@ -51,13 +51,13 @@ module.exports = {
     });
 
     return res.json(books);
-  },
+  }
 
   async getById(id) {
     const book = await Book.findByPk(id);
 
     return book;
-  },
+  }
 
   async store(req, res) {
     try {
@@ -93,7 +93,7 @@ module.exports = {
     } catch (error) {
       return res.status(500).json(error.message);
     }
-  },
+  }
 
   async update(req, res) {
     const { id } = req.params;
@@ -137,7 +137,7 @@ module.exports = {
     } catch (error) {
       return res.status(500).json(error.message);
     }
-  },
+  }
 
   async delete(req, res) {
     try {
@@ -172,5 +172,7 @@ module.exports = {
     } catch (error) {
       return res.status(500).json(error.message);
     }
-  },
-};
+  }
+}
+
+module.exports = new BookController();

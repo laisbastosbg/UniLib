@@ -1,10 +1,10 @@
-sequelize = require('../database');
+const sequelize = require('../database');
 const { Op } = require('sequelize');
 const User = require('../models/User');
 
 const Book = require('../models/User');
 
-module.exports = {
+class UserController {
   async index(request, response) {
     const {
       login,
@@ -48,13 +48,13 @@ module.exports = {
       const users = await User.findAll({where});
 
       return response.json(users);
-  },
+  }
 
   async getById(id) {
     const user = await User.findByPk(id);
 
     return user;
-  },
+  }
 
   async getByLogin(login) {
     const [user] = await User.findAll({
@@ -64,7 +64,7 @@ module.exports = {
     });
 
     return user;
-  },
+  }
 
   async store(request, response) {
     try {
@@ -101,11 +101,11 @@ module.exports = {
     } catch (error) {
       return response.status(500).json({
         error: "Algo deu errado",
-        description: error.message
+        description: error
       })
     }
-  },
-  
+  }
+
   async update(request, response) {
     try {
       const { id } = request.params;
@@ -152,8 +152,8 @@ module.exports = {
         description: error.message
       })
     }
-  },
-  
+  }
+
   async delete(request, response) {
     try {
       const transaction = sequelize.transaction();
@@ -185,5 +185,7 @@ module.exports = {
         description: error.message
       });
     }
-  },
+  }
 }
+
+module.exports = new UserController();

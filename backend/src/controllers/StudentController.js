@@ -1,9 +1,9 @@
-sequelize = require('../database');
+const sequelize = require('../database');
 const { Op } = require('sequelize');
 
 const Student = require('../models/Student')
 
-module.exports = {
+class StudentController {
   async index(req, res) {
     const {
       name,
@@ -33,13 +33,13 @@ module.exports = {
     });
 
     return res.json(students);
-  },
+  }
 
   async getById(id) {
     const student = await Student.findByPk(id);
 
     return student;
-  },
+  }
 
   async store(req, res) {
     try {
@@ -75,7 +75,7 @@ module.exports = {
     } catch (error) {
       return res.status(500).json(error.message);
     }
-  },
+  }
 
   async update(req, res) {
     const { id } = req.params;
@@ -119,7 +119,7 @@ module.exports = {
     } catch (error) {
       return res.status(500).json(error.message);
     }
-  },
+  }
 
   async delete(req, res) {
     try {
@@ -154,5 +154,7 @@ module.exports = {
     } catch (error) {
       return res.status(500).json(error.message);
     }
-  },
-};
+  }
+}
+
+module.exports = new StudentController();
