@@ -1,50 +1,23 @@
 const { Router } = require('express');
+
+const { checkIfIsLoggedIn } = require('../middlewares/Auth');
 const UserController = require('../controllers/UserController');
+
+const {
+  checkIfUserExists,
+  checkIfUserHasPermission,
+  checkIfUsernameIsAvailable
+} = require('../middlewares/UserMiddlewares');
 
 const usersRouter = Router();
 
-async function checkIfUserExists(request, response, next) {
-  const { login } = request.params;
+usersRouter.post('/auth', UserController.authenticate);
 
-  const user = await UserController.getByLogin(login);
-
-  if (!user) return response.status(404).json({
-    error: "Usuário não encontrado."
-  });
-
-  next();
-}
-
-async function checkIfUsernameIsAvailable(request, response, next) {
-  const { login } = request.body;
-
-  const user = await UserController.getByLogin(login);
-
-
-  if (user) return response.status(404).json({
-    error: "Já existe um usuário cadastrado com esse nome de usuário."
-  });
-
-  next();
-}
-
-async function checkIfUserHasPermission(request, response, next) {
-  const { login } = request.headers;
-
-  const user = await UserController.getByLogin(login);
-
-  if (user.profile != "administrador") return response.status(404).json({
-    error: "Você não tem permissão para acessar essa rota"
-  });
-
-  next();
-}
+usersRouter.use(checkIfIsLoggedIn);
 
 usersRouter.get('/', UserController.index);
 
 usersRouter.post('/', checkIfUsernameIsAvailable, checkIfUserHasPermission, UserController.store);
-
-usersRouter.post('/auth', UserController.auth);
 
 usersRouter.put('/:id', checkIfUserExists, UserController.update);
 

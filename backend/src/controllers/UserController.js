@@ -199,7 +199,7 @@ class UserController {
     }
   }
 
-  async auth(request, response) {
+  async authenticate(request, response) {
     const { login, password } = request.body;
 
     let user = await User.findOne({ where: { login }});

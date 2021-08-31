@@ -1,20 +1,9 @@
 const { Router } = require('express');
 const BookController = require('../controllers/BookController');
 
+const { checkIfBookExists } = require('../middlewares/BookMiddlewares');
+
 const booksRouter = Router();
-
-async function checkIfBookExists(request, response, next) {
-  const { id } = request.params;
-
-  const book = await BookController.getById(id);
-
-
-  if (!book) return response.status(404).json({
-    error: "Livro não encontrado."
-  });
-
-  next();
-}
 
 booksRouter.get('/', BookController.index);
 

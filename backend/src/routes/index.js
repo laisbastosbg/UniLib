@@ -5,10 +5,15 @@ const usersRouter = require('./users.routes')
 const studentsRouter = require('./students.routes')
 const loansRouter = require('./loans.routes');
 
+const { checkIfIsLoggedIn } = require('../middlewares/Auth');
+
 const routes = express.Router();
 
-routes.use('/books', booksRouter);
 routes.use('/users', usersRouter);
+
+routes.use(checkIfIsLoggedIn);
+
+routes.use('/books', booksRouter);
 routes.use('/students', studentsRouter);
 routes.use('/loans', loansRouter);
 
