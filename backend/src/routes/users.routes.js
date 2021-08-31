@@ -4,9 +4,9 @@ const UserController = require('../controllers/UserController');
 const usersRouter = Router();
 
 async function checkIfUserExists(request, response, next) {
-  const { id } = request.params;
+  const { login } = request.params;
 
-  const user = await UserController.getById(id);
+  const user = await UserController.getByLogin(login);
 
   if (!user) return response.status(404).json({
     error: "Usuário não encontrado."
@@ -43,6 +43,8 @@ async function checkIfUserHasPermission(request, response, next) {
 usersRouter.get('/', UserController.index);
 
 usersRouter.post('/', checkIfUsernameIsAvailable, checkIfUserHasPermission, UserController.store);
+
+usersRouter.post('/auth', UserController.auth);
 
 usersRouter.put('/:id', checkIfUserExists, UserController.update);
 

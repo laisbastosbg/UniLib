@@ -1,8 +1,11 @@
-const sequelize = require('../database');
-const { Op } = require('sequelize');
-const User = require('../models/User');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const Book = require('../models/User');
+const { Op } = require('sequelize');
+
+const sequelize = require('../database');
+
+const User = require('../models/User');
 
 class UserController {
   async index(request, response) {
@@ -45,7 +48,12 @@ class UserController {
           profile,
         });
 
-      const users = await User.findAll({where});
+      const users = await User.findAll({
+        where,/*
+        attributes: {
+          exclude: ['password']
+        }*/
+      });
 
       return response.json(users);
   }
@@ -81,13 +89,17 @@ class UserController {
 
       const transaction = await sequelize.transaction();
 
+      const saltRounds = parseInt(process.env.SALT_ROUNDS)
+
+      const hash = bcrypt.hashSync(password, saltRounds)
+      console.log("hash: ", hash)
       const user = await User.create({
         login,
         name,
         cpf,
         email,
         phone_number,
-        password,
+        password: hash,
         birthdate,
         profile
       }, {
@@ -185,6 +197,29 @@ class UserController {
         description: error.message
       });
     }
+  }
+
+  async auth(request, response) {
+    const { login, password } = request.body;
+
+    let user = await User.findOne({ where: { login }});
+
+    if(!user) return response.status(404).json({ error: 'Usuário não encontrado' })
+
+    const authenticate = bcrypt.compareSync(password, user.password);
+
+    if(!authenticate) return response.status(401).json({error: 'senha incorreta'});
+
+    const token = jwt.sign({ id: user.id }, process.env.SECRET, {
+      expiresIn: 86400.
+    });
+
+    return response.status(200).json({
+      login: user.login,
+      profile: user.profile,
+      id: user.id,
+      token
+    })
   }
 }
 
