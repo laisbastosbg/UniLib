@@ -5,7 +5,7 @@ class Student extends Model {
       super.init(
       {
         name: DataTypes.STRING,
-        resgistration: DataTypes.STRING,
+        registration: DataTypes.STRING,
         course: DataTypes.STRING,
         email: DataTypes.STRING,
         phone_number: DataTypes.STRING,
@@ -16,6 +16,10 @@ class Student extends Model {
         paranoid: true,
       }
     );
+  }
+
+  static associate(models) {
+    this.hasMany(models.Loan)
   }
 }
 

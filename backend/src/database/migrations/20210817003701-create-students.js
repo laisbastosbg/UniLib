@@ -12,32 +12,26 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
       },
       registration: {
         type: Sequelize.STRING,
         allowNull: true,
-        unique: true
       },
       course: {
         type: Sequelize.STRING,
         allowNull: true,
-        unique: true
       },
       email: {
         type: Sequelize.STRING,
         allowNull: true,
-        unique: true
       },
       phone_number: {
         type: Sequelize.STRING,
         allowNull: true,
-        unique: true
       },
       birthdate: {
         type: Sequelize.DATE,
         allowNull: false,
-        unique: true
       },
       created_at: {
         type: Sequelize.DATE,

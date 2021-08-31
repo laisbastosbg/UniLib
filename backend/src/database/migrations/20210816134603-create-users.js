@@ -17,7 +17,6 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
       },
       cpf: {
         type: Sequelize.STRING,
@@ -27,23 +26,16 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
       },
       phone_number: {
         type: Sequelize.STRING,
         allowNull: true,
-        unique: true
       },
       password: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
       },
       birthdate: {
-        type: Sequelize.DATE,
-        allowNUll: true,
-      },
-      admission_date: {
         type: Sequelize.DATE,
         allowNUll: true,
       },
