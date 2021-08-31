@@ -29,7 +29,7 @@
 
 ## Regras de negócio
 
-- [ ] Um usuário bibliotecário não deve ser capaz de cadastrar novos usuários
+- [x] Um usuário bibliotecário não deve ser capaz de cadastrar novos usuários
 - [x] Não deve ser possível atualizar os dados de um usuário que não existe
 - [x] Não deve ser possível deletar um usuário que não existe
 - [x] Não dever ser possível cadastrar mais de um usuário com o mesmo login

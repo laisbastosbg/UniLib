@@ -1,8 +1,10 @@
 sequelize = require('../database');
 const { Op } = require('sequelize');
-const moment = require('moment')
+const moment = require('moment');
 
-const Loan = require('../models/Loan')
+const Loan = require('../models/Loan');
+const Book = require('../models/Book');
+const Student = require('../models/Student');
 
 class LoanController {
   async index(req, res) {
@@ -11,26 +13,34 @@ class LoanController {
       book,
     } = req.query;
 
-    let where = {};
-/*
-    name &&
-      (where = {
-        ...where,
+    let studentWhere = {};
+
+    student &&
+      (studentWhere = {
+        ...studentWhere,
         name: {
-          [Op.iLike]: `%${name}%`,
+          [Op.iLike]: `%${student}%`,
         },
       });
 
-    registration &&
-      (where = {
-        ...where,
-        registration: {
-          [Op.iLike]: `%${registration}%`,
-        },
-      });
-*/
+      let bookWhere = {};
+  
+      book &&
+        (bookWhere = {
+          ...bookWhere,
+          title: {
+            [Op.iLike]: `%${book}%`,
+          },
+        });
+
     const loans = await Loan.findAll({
-      where
+      include: [{
+        model: Student,
+        where: studentWhere
+      },{
+        model: Book,
+        where: bookWhere
+      }]
     });
 
     return res.json(loans);
@@ -178,7 +188,6 @@ class LoanController {
         });
       }
 
-      
     } catch (error) {
       return res.status(500).json(error.message);
     }
