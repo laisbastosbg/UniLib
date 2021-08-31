@@ -7,7 +7,7 @@
 - [x] Deve ser possível listar os usuários criados
 - [x] Deve ser possível atualizar os dados de um usuário
 - [x] Deve ser possível deletar um usuário
-- [ ] Deve ser possível fazer autenticação de usuário
+- [x] Deve ser possível fazer autenticação de usuário
 
 ### Livros
 - [x] Deve ser possível criar livros
