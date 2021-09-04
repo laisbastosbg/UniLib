@@ -11,7 +11,16 @@ class LoanController {
     const {
       student,
       book,
+      return_date
     } = req.query;
+
+    let where = {};
+
+    return_date && (
+      where = {
+        return_date: moment(return_date).startOf('day')
+      }
+    )
 
     let studentWhere = {};
 
@@ -34,6 +43,7 @@ class LoanController {
         });
 
     const loans = await Loan.findAll({
+      where,
       include: [{
         model: Student,
         where: studentWhere
@@ -64,7 +74,7 @@ class LoanController {
       } = req.body;
 
       const user_id = user.id;
-      const estimated_return_date = moment().add(14, 'days');
+      const estimated_return_date = moment().add(14, 'days').endOf('day');
 
       const loan = await Loan.create(
         {
@@ -126,6 +136,16 @@ class LoanController {
     }
   }
 
+  async countLoans(student_id) {
+    const count = await Loan.count({
+      where: { student_id, return_date: null }
+    })
+
+    console.log("count: ", count)
+
+    return count;
+  }
+
   async setReturn(req, res) {
 
     try {
@@ -133,7 +153,7 @@ class LoanController {
 
       const transaction = await sequelize.transaction();
 
-      const return_date = moment();
+      const return_date = moment().startOf('day');
 
       const updatedLoan = await Loan.update(
         {
@@ -157,6 +177,19 @@ class LoanController {
     } catch (error) {
       return res.status(500).json(error.message);
     }
+  }
+
+  async hasBeenReturned(id) {
+    const loan = Loan.findOne({
+      where: {
+        id,
+        return_date: {
+          [Op.ne]: null
+        }
+      }
+    });
+
+    return loan
   }
 
   async delete(req, res) {

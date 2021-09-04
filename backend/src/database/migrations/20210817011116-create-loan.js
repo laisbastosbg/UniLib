@@ -51,15 +51,14 @@ module.exports = {
       },
       created_at: {
         type: Sequelize.DATE,
-        allowNUll: false,
+        allowNull: false,
       },
       updated_at: {
         type: Sequelize.DATE,
-        allowNUll: false,
+        allowNull: false,
       },
       deleted_at: {
         type: Sequelize.DATE,
-        allowNUll: false,
       },
     })
   },
