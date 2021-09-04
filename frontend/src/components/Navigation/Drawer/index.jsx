@@ -1,84 +1,160 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-
-import { Link } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import AppBar from "@material-ui/core/AppBar";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
+import Hidden from "@material-ui/core/Hidden";
+import IconButton from "@material-ui/core/IconButton";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import MailIcon from "@material-ui/icons/Mail";
+import MenuIcon from "@material-ui/icons/Menu";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
 
 import InternalRoutes from 'components/Routes/InternalRoutes';
+
+import PrivateRoute from 'components/Routes/PrivateRoute';
+
+import Books from 'pages/Books';
+import Loans from 'pages/Loans';
+import Users from 'pages/Users';
+import Students from 'pages/Students';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+    display: "flex"
   },
   drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
+    [theme.breakpoints.up("sm")]: {
+      width: drawerWidth,
+      flexShrink: 0
+    }
   },
+  appBar: {
+    marginLeft: drawerWidth,
+    [theme.breakpoints.up("sm")]: {
+      width: `calc(100% - ${drawerWidth}px)`
+    }
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up("sm")]: {
+      display: "none"
+    }
+  },
+  toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerContainer: {
-    overflow: 'auto',
+    width: drawerWidth
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
-  },
+    padding: theme.spacing(3)
+  }
 }));
 
-const Links = [
-    <Link to="/emprestimos">Empréstimos</Link>,
-    <Link to="/alunos">Alunos</Link>,
-    <Link to="/livros">Livros</Link>,
-    <Link to="/usuarios">Usuários</Link>,
-  ]
-
-const NavigationDrawer = () => {
+function ResponsiveDrawer(props) {
+  const { container } = props;
   const classes = useStyles();
+  const theme = useTheme();
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const routes = [{
+    text: "Empréstimos",
+    to: "/emprestimos"
+  }, {
+    text: "Livros",
+    to: "/livros"
+  }, {
+    text: "Alunos",
+    to: "/alunos"
+  }, {
+    text: "Usuários",
+    to: "/usuarios"
+  }]
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const drawer = (
+    <div>
+      <div className={classes.toolbar} />
+      <Divider />
+      <List>
+        {routes.map((route, index) => (
+          <ListItem key={index} component={Link} to={route.to}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+            <ListItemText primary={route.text} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
 
   return (
     <div className={classes.root}>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <Toolbar />
-        <div className={classes.drawerContainer}>
-          <List>
-            {Links.map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      </Drawer>
-      <main className={classes.content}>
-        <Toolbar />
-        <InternalRoutes render />
-      </main>
+      <CssBaseline />
+      <BrowserRouter>
+        <nav className={classes.drawer} aria-label="mailbox folders">
+          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+          <Hidden smUp implementation="css">
+            <Drawer
+              container={container}
+              variant="temporary"
+              anchor={theme.direction === "rtl" ? "right" : "left"}
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              classes={{
+                paper: classes.drawerPaper
+              }}
+              ModalProps={{
+                keepMounted: true // Better open performance on mobile.
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <Hidden xsDown implementation="css">
+            <Drawer
+              classes={{
+                paper: classes.drawerPaper
+              }}
+              variant="permanent"
+              open
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+        </nav>
+
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <InternalRoutes />
+        </main>
+      </BrowserRouter>
     </div>
   );
 }
 
-export default NavigationDrawer;
+ResponsiveDrawer.propTypes = {
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  container: PropTypes.instanceOf(
+    typeof Element === "undefined" ? Object : Element
+  )
+};
+
+export default ResponsiveDrawer;

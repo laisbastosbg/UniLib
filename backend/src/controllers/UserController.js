@@ -218,6 +218,7 @@ class UserController {
       login: user.login,
       profile: user.profile,
       id: user.id,
+      auth: true,
       token
     })
   }
