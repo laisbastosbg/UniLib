@@ -2,11 +2,12 @@ import React from 'react';
 
 import { Link } from 'react-router-dom'
 
+import Title from 'components/Text/Title';
+
 const Books = () => {
   return (
     <>
-      <h1>Página de Livros</h1>
-      <Link to="/">voltar</Link>
+      <Title>Livros</Title>
     </>
   )
 }

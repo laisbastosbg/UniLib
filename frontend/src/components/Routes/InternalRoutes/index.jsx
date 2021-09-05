@@ -3,7 +3,6 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 
 import PrivateRoute from 'components/Routes/PrivateRoute';
-import NavigationDrawer from 'components/Navigation/Drawer';
 
 import Books from 'pages/Books';
 import Loans from 'pages/Loans';
@@ -13,13 +12,13 @@ import Students from 'pages/Students';
 const InternalRoutes = () => {
   return (
     <Switch>
-      <PrivateRoute component={Loans} path="/emprestimos" />
-      <PrivateRoute component={Books} path="/livros" />
-      <PrivateRoute component={Students} path="/alunos" />
-      <PrivateRoute component={Users} path="/usuarios" restricted />
+      <PrivateRoute render={() => <Loans />} path="/emprestimos" />
+      <PrivateRoute render={() => <Books />} path="/livros" />
+      <PrivateRoute render={() => <Students />} path="/alunos" />
+      <PrivateRoute render={() => <Users />} path="/usuarios" restricted />
     </Switch>
   )
-  
+
 }
 
 export default InternalRoutes;
