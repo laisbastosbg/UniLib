@@ -54,6 +54,8 @@ class StudentController {
         birthdate
       } = req.body;
 
+      console.log(req.body)
+
 
       const student = await Student.create(
         {

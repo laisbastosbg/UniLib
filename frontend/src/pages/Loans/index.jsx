@@ -1,12 +1,14 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
+import Title from 'components/Text/Title';
+import Table from 'components/Table';
 
 const Loans = () => {
   return (
     <>
-      <h1>Página de Empréstimos</h1>
-      <Link to="/">voltar</Link>
+      <Title>Empréstimos</Title>
     </>
   )
 }

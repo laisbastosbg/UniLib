@@ -87,12 +87,14 @@ class UserController {
         profile
       } = request.body;
 
+      console.log(request.body)
+
       const transaction = await sequelize.transaction();
 
       const saltRounds = parseInt(process.env.SALT_ROUNDS)
 
       const hash = bcrypt.hashSync(password, saltRounds)
-      console.log("hash: ", hash)
+
       const user = await User.create({
         login,
         name,

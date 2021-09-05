@@ -19,7 +19,7 @@ class UserMiddlewares {
     const user = await UserController.getByLogin(login);
 
 
-    if (user) return response.status(404).json({
+    if (user) return response.status(401).json({
       error: "Já existe um usuário cadastrado com esse nome de usuário."
     });
 
@@ -40,6 +40,19 @@ class UserMiddlewares {
     });
 
     next();
+  }
+
+  async validateFields(request, response, next) {
+    const { login, cpf, email, password } = request.body;
+
+    if (!!login && !!cpf && !!email && !!password) {
+      next();
+    } else {
+      return response.status(404).json({
+        error: "Campos não preenchidos corretamente"
+      });
+    }
+
   }
 }
 
