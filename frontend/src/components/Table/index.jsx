@@ -10,6 +10,7 @@ function Table({
   columns,
   components,
   data,
+  detailPanel,
   editable,
   handleCreate,
   handleEdit,
@@ -23,6 +24,7 @@ function Table({
       title={title}
       columns={columns}
       data={data}
+      detailPanel={detailPanel}
       editable={editable}
       localization={{
         body: localizationBody,

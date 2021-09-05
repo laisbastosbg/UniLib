@@ -97,6 +97,18 @@ class LoanMiddlewares {
     
     next();
   }
+  
+  async checkIfBookIsAvailable(request, response, next) {
+    const { book_id } = request.body;
+  
+    const book = await BookController.verifyActiveLoan(book_id);
+  
+    if (book && book.Loans.length > 0) return response.status(404).json({
+      error: "Livro indisponível."
+    });
+  
+    next();
+  }
 }
 
 module.exports = new LoanMiddlewares;
