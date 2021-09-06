@@ -31,9 +31,13 @@ const Students = () => {
     setOpen(false);
   };
 
+  const dateFormatter = str => {
+    return str;
+  };
+
   const columns = [
     {
-      title: "matrícula",
+      title: "Matrícula",
       field: "registration",
     },
     {
@@ -56,15 +60,14 @@ const Students = () => {
       editComponent: (item) => (
         <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale="br">
           <KeyboardDatePicker
-            value={item.birthdate}
+            rifmFormatter={dateFormatter}
             onChange={(e) => {
-              console.log(item.value)
-              console.log(e)
               return (
-                item.onChange(e._i)
+                e._i && item.onChange(e._i)
               )
             }}
-            format="DD/MM/yyyy"
+            formatDate={(date) => moment(date).format('DD/MM/YYYY')}
+            format="DD/MM/YYYY"
           />
         </MuiPickersUtilsProvider>
       )
@@ -85,13 +88,16 @@ const Students = () => {
       Authorization: `Bearer ${localStorage.getItem("token")}`
     }
 
+    const birthdate = moment(newData.birthdate).format("YYYY-MM-DD")
+    console.log("birthdate: ", birthdate)
+
     try {
       const response = await api.post(
         `/students`,
         {
           name: newData.name,
           registration: newData.registration,
-          birthdate: newData.birthdate,
+          birthdate,
           course: newData.course,
           email: newData.email,
           phone_number: newData.phone_number,
@@ -118,13 +124,16 @@ const Students = () => {
 
     const id = newData.id;
 
+    const birthdate = moment(newData.birthdate).format("YYYY-MM-DD");
+    console.log("birthdate: ", birthdate)
+
     try {
       const response = await api.put(
         `/students/${id}`,
         {
           name: newData.name,
           registration: newData.registration,
-          birthdate: newData.birthdate,
+          birthdate,
           course: newData.course,
           email: newData.email,
           phone_number: newData.phone_number,

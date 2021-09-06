@@ -54,9 +54,6 @@ class StudentController {
         birthdate
       } = req.body;
 
-      console.log(req.body)
-
-
       const student = await Student.create(
         {
           name,
@@ -93,6 +90,8 @@ class StudentController {
         phone_number,
         birthdate
       } = req.body;
+
+      console.log(req.body)
 
       const updatedStudent = await Student.update(
         {

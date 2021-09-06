@@ -10,11 +10,13 @@ function Table({
   columns,
   components,
   data,
+  detailPanel,
   editable,
   handleCreate,
   handleEdit,
   handleDelete,
   localizationBody,
+  onRowClick,
   options,
   title,
 }) {
@@ -23,6 +25,7 @@ function Table({
       title={title}
       columns={columns}
       data={data}
+      detailPanel={detailPanel}
       editable={editable}
       localization={{
         body: localizationBody,
@@ -43,6 +46,7 @@ function Table({
           actions: "Ações",
         },
       }}
+      onRowClick={onRowClick}
       options={options}
       components={components}
     />

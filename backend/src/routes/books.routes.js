@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const BookController = require('../controllers/BookController');
 
-const { checkIfBookExists } = require('../middlewares/BookMiddlewares');
+const { checkIfBookExists, checkIfBookIsAvailable } = require('../middlewares/BookMiddlewares');
 
 const booksRouter = Router();
 
