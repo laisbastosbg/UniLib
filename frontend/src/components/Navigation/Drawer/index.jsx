@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -60,12 +60,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer(props) {
-  const { container } = props;
-  const classes = useStyles();
-  const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const routes = [{
+  const [routes, setRoutes] = useState([{
     text: "Empréstimos",
     to: "/emprestimos",
     icon: <Loan />
@@ -77,11 +72,27 @@ function ResponsiveDrawer(props) {
     text: "Alunos",
     to: "/alunos",
     icon: <Student />
-  }, {
-    text: "Usuários",
-    to: "/usuarios",
-    icon: <User />
-  }]
+  }])
+
+  const { container } = props;
+  const classes = useStyles();
+  const theme = useTheme();
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  useEffect(() => {
+    const userProfile = localStorage.getItem("profile");
+
+    if (userProfile === "administrador") {
+      setRoutes([
+        ...routes,
+        {
+          text: "Usuários",
+          to: "/usuarios",
+          icon: <User />
+        }
+      ]);
+    }
+  }, []);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

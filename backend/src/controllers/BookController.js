@@ -1,6 +1,8 @@
 sequelize = require('../database');
 const { Op } = require('sequelize');
 
+const moment = require("moment");
+
 const Book = require('../models/Book');
 const Loan = require('../models/Loan')
 
@@ -49,10 +51,12 @@ class BookController {
 
     const books = await Book.findAll({
       where,
+      order: [
+        ['title']
+      ]
     });
 
     const loans = await books[0].getLoans();
-    console.log("loans: ", loans)
 
     let _books = await Promise.all(books.map(async (book) => {
       let loans = await book.getLoans({
@@ -61,7 +65,7 @@ class BookController {
         }
       })
 
-      let status = loans.length > 0 ? loans[0].dataValues.estimated_return_date : "Disponível"
+      let status = loans.length > 0 ? moment.utc(loans[0].dataValues.estimated_return_date).format("DD/MM/YYYY") : "Disponível"
       return {
         ...book.dataValues,
         status
@@ -79,7 +83,6 @@ class BookController {
 
   async verifyActiveLoan(id) {
 
-    console.log("#############", id)
     const book = await Book.findOne({
       where: { id },
       include: {
@@ -89,8 +92,6 @@ class BookController {
         }
       }
     });
-
-    console.log("#############", id)
 
     return book;
   }

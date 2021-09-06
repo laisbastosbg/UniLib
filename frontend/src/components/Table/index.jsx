@@ -16,6 +16,7 @@ function Table({
   handleEdit,
   handleDelete,
   localizationBody,
+  onRowClick,
   options,
   title,
 }) {
@@ -45,6 +46,7 @@ function Table({
           actions: "Ações",
         },
       }}
+      onRowClick={onRowClick}
       options={options}
       components={components}
     />

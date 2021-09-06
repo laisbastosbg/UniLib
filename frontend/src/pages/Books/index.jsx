@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-
 import Title from 'components/Text/Title';
 import Table from 'components/Table';
+import DetailPanel from 'components/DetailPanel';
 
 import api from 'services/api';
 
+import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import MomentUtils from "@date-io/moment";
+
+import { SynopsisIcon } from './styles';
+
 const moment = require("moment");
 
 moment.locale("pt-br")
@@ -33,9 +35,9 @@ const Books = () => {
 
   const columns = [
     {
-      title: "COD",
-      field: "id",
-      editable: "never",
+      title: "ISBN",
+      field: "isbn",
+      editable: "onAdd",
     },
     {
       title: "Título",
@@ -48,16 +50,33 @@ const Books = () => {
     {
       title: "Edição",
       field: "edition",
-      type: "date",
     },
     {
       title: "Sinopse",
-      field: "status",
-      type: "text"
+      field: "synopsis",
+      render: () => <SynopsisIcon />,
+      editComponent: (item) => {
+        return (
+          <TextField
+            id="standard-multiline-static"
+            label="Multiline"
+            multiline
+            rows={2}
+            inputProps={{ maxLength: 1023 }}
+            defaultValue={item.value}
+            onChange={(e) => item.onChange(e.target.value)}
+          />
+        )
+      }
+    },
+    {
+      title: "Editora",
+      field: "publisher",
     },
     {
       title: "Status",
       field: "status",
+      editable: "never"
     },
   ];
 
@@ -75,8 +94,8 @@ const Books = () => {
           author: newData.author,
           publisher: newData.publisher,
           isbn: newData.isbn,
-          // edition: newData.edition,
-          // synopsis: newData.synopsis,
+          edition: newData.edition,
+          synopsis: newData.synopsis,
         },
         { headers }
       );
@@ -85,6 +104,8 @@ const Books = () => {
         setOpen(true);
         setErrorText(response.data.error);
       }
+
+      console.log("response: ", response)
 
       fetchData(data);
     } catch (error) {
@@ -108,8 +129,8 @@ const Books = () => {
           author: newData.author,
           publisher: newData.publisher,
           isbn: newData.isbn,
-          // edition: newData.edition,
-          // synopsis: newData.synopsis,
+          edition: newData.edition,
+          synopsis: newData.synopsis,
         },
         { headers }
       );
@@ -173,11 +194,9 @@ const Books = () => {
         data={data}
         detailPanel={rowData => {
           return (
-            <div>
-              <p><b>Editora: </b>{rowData.publisher}</p>
-              <p><b>ISBN: </b>{rowData.isbn}</p>
+            <DetailPanel>
               <p><b>Sinopse: </b>{rowData.synopsis}</p>
-            </div>
+            </DetailPanel>
           )
         }}
         editable={{
@@ -214,6 +233,7 @@ const Books = () => {
           deleteTooltip: "Remover Registro",
           editTooltip: "Editar Registro",
         }}
+        onRowClick={(event, rowData, togglePanel) => togglePanel()}
         options={{
           addRowPosition: "first",
           actionsColumnIndex: -1,
