@@ -29,7 +29,10 @@ class StudentController {
       });
 
     const students = await Student.findAll({
-      where
+      where,
+      order: [
+        ['name']
+      ]
     });
 
     return res.json(students);
@@ -42,6 +45,7 @@ class StudentController {
   }
 
   async store(req, res) {
+    console.log(req.body);
     try {
       const transaction = await sequelize.transaction();
 
@@ -54,7 +58,6 @@ class StudentController {
         birthdate
       } = req.body;
 
-
       const student = await Student.create(
         {
           name,
@@ -62,7 +65,7 @@ class StudentController {
           course,
           email,
           phone_number,
-          birthdate
+          birthdate: new Date(birthdate)
         },
         {
           transaction,
@@ -92,6 +95,8 @@ class StudentController {
         birthdate
       } = req.body;
 
+      console.log(req.body)
+
       const updatedStudent = await Student.update(
         {
           name,
@@ -99,7 +104,7 @@ class StudentController {
           course,
           email,
           phone_number,
-          birthdate
+          birthdate: new Date(birthdate)
         },
         {
           where: {

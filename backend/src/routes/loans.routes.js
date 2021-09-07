@@ -5,7 +5,10 @@ const {
   checkIfBookExists,
   checkIfLoanExists,
   checkIfStudentExists,
-  checkIfUserExists
+  checkIfUserExists,
+  checkIfStudentCanBorrow,
+  checkIfAlreadyReturned,
+  checkIfBookIsAvailable
 } = require('../middlewares/LoanMiddlewares')
 
 const loansRouter = Router();
@@ -16,17 +19,21 @@ loansRouter.post('/',
   checkIfBookExists,
   checkIfStudentExists,
   checkIfUserExists,
+  checkIfStudentCanBorrow,
+  checkIfBookIsAvailable,
   LoanController.store
 );
 
 loansRouter.put('/:id',
   checkIfLoanExists,
   checkIfUserExists,
+  checkIfBookIsAvailable,
   LoanController.update
 );
 
 loansRouter.patch('/:id',
   checkIfLoanExists,
+  checkIfAlreadyReturned,
   LoanController.setReturn
 );
 

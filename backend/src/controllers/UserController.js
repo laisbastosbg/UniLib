@@ -48,12 +48,20 @@ class UserController {
           profile,
         });
 
+        console.log("where: ", where)
+
       const users = await User.findAll({
-        where,/*
+        where,
+        order: [
+          ['name']
+        ]
+        /*
         attributes: {
           exclude: ['password']
         }*/
       });
+
+      console.log("users: ", users)
 
       return response.json(users);
   }
@@ -87,12 +95,14 @@ class UserController {
         profile
       } = request.body;
 
+      console.log(request.body)
+
       const transaction = await sequelize.transaction();
 
       const saltRounds = parseInt(process.env.SALT_ROUNDS)
 
       const hash = bcrypt.hashSync(password, saltRounds)
-      console.log("hash: ", hash)
+
       const user = await User.create({
         login,
         name,
@@ -218,6 +228,7 @@ class UserController {
       login: user.login,
       profile: user.profile,
       id: user.id,
+      auth: true,
       token
     })
   }

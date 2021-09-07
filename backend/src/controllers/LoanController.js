@@ -3,15 +3,22 @@ const { Op } = require('sequelize');
 const moment = require('moment');
 
 const Loan = require('../models/Loan');
-const Book = require('../models/Book');
-const Student = require('../models/Student');
 
 class LoanController {
   async index(req, res) {
     const {
       student,
       book,
+      return_date
     } = req.query;
+
+    let where = {};
+
+    return_date && (
+      where = {
+        return_date: moment(return_date).startOf('day')
+      }
+    )
 
     let studentWhere = {};
 
@@ -34,16 +41,60 @@ class LoanController {
         });
 
     const loans = await Loan.findAll({
-      include: [{
-        model: Student,
-        where: studentWhere
-      },{
-        model: Book,
-        where: bookWhere
-      }]
+      where,
+      order: [
+        ['estimated_return_date', 'desc']
+      ]
     });
 
-    return res.json(loans);
+    const today = moment();
+
+    const _loans = await Promise.all(loans.map(async (loan) => {
+      let status = "";
+      let fine = 0;
+
+      if(!!loan.return_date) {
+        status = loan.estimated_return_date >= loan.return_date ? 
+          "Devolvido" : "Devolvido com atraso"
+      } else {
+        status = loan.estimated_return_date >= today ?
+          "Alugado" : "Em atraso"
+      }
+
+      if (status !== "Devolvido" && status !== "Alugado") {
+        let estimated_return_date = moment(loan.estimated_return_date).startOf('day');
+        let return_date = loan.return_date ? moment(loan.return_date) : moment();
+        let dias_de_atraso = return_date.diff(estimated_return_date, 'days');
+        
+        fine = dias_de_atraso * 2
+      }
+
+      const loan_book = await loan.getBook();
+      const book = loan_book.dataValues.title;
+
+      const loan_student = await loan.getStudent();
+      const student = loan_student.dataValues.name;
+
+      const loan_user = await loan.getUser();
+      const user = loan_user.dataValues.name;
+
+      let return_date = !!loan.return_date ? 
+        moment.utc(loan.return_date).format("DD/MM/YYYY") : "Não devolvido";
+      
+      return {
+        ...loan.dataValues,
+        status,
+        fine: fine.toFixed(2),
+        book,
+        student,
+        user,
+        return_date
+      }
+    }))
+
+    console.log(_loans)
+
+    return res.json(_loans);
   }
 
   async getById(id) {
@@ -64,7 +115,7 @@ class LoanController {
       } = req.body;
 
       const user_id = user.id;
-      const estimated_return_date = moment().add(14, 'days');
+      const estimated_return_date = moment().add(14, 'days').endOf('day');
 
       const loan = await Loan.create(
         {
@@ -126,6 +177,16 @@ class LoanController {
     }
   }
 
+  async countLoans(student_id) {
+    const count = await Loan.count({
+      where: { student_id, return_date: null }
+    })
+
+    console.log("count: ", count)
+
+    return count;
+  }
+
   async setReturn(req, res) {
 
     try {
@@ -133,7 +194,7 @@ class LoanController {
 
       const transaction = await sequelize.transaction();
 
-      const return_date = moment();
+      const return_date = moment().startOf('day');
 
       const updatedLoan = await Loan.update(
         {
@@ -157,6 +218,19 @@ class LoanController {
     } catch (error) {
       return res.status(500).json(error.message);
     }
+  }
+
+  async hasBeenReturned(id) {
+    const loan = Loan.findOne({
+      where: {
+        id,
+        return_date: {
+          [Op.ne]: null
+        }
+      }
+    });
+
+    return loan
   }
 
   async delete(req, res) {

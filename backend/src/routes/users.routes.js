@@ -6,7 +6,8 @@ const UserController = require('../controllers/UserController');
 const {
   checkIfUserExists,
   checkIfUserHasPermission,
-  checkIfUsernameIsAvailable
+  checkIfUsernameIsAvailable,
+  validateFields
 } = require('../middlewares/UserMiddlewares');
 
 const usersRouter = Router();
@@ -17,9 +18,9 @@ usersRouter.use(checkIfIsLoggedIn);
 
 usersRouter.get('/', UserController.index);
 
-usersRouter.post('/', checkIfUsernameIsAvailable, checkIfUserHasPermission, UserController.store);
+usersRouter.post('/', checkIfUsernameIsAvailable, checkIfUserHasPermission, validateFields, UserController.store);
 
-usersRouter.put('/:id', checkIfUserExists, UserController.update);
+usersRouter.put('/:id', checkIfUserExists, validateFields, UserController.update);
 
 usersRouter.delete('/:id', checkIfUserExists, UserController.delete);
 
