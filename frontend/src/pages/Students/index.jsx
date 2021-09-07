@@ -60,14 +60,13 @@ const Students = () => {
       editComponent: (item) => (
         <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale="br">
           <KeyboardDatePicker
-            rifmFormatter={dateFormatter}
             onChange={(e) => {
               return (
-                e._i && item.onChange(e._i)
+                item.onChange(e._i)
               )
             }}
-            formatDate={(date) => moment(date).format('DD/MM/YYYY')}
-            format="DD/MM/YYYY"
+            //formatDate={(date) => moment(date)}
+            format="DD/MM/yyyy"
           />
         </MuiPickersUtilsProvider>
       )
@@ -88,8 +87,8 @@ const Students = () => {
       Authorization: `Bearer ${localStorage.getItem("token")}`
     }
 
-    const birthdate = moment(newData.birthdate).format("YYYY-MM-DD")
-    console.log("birthdate: ", birthdate)
+    const birthdate = moment(newData.birthdate, "DD/MM/YYYY").format("YYYY-MM-DD")
+    console.log("birthdate: ", newData.birthdate)
 
     try {
       const response = await api.post(
@@ -124,7 +123,8 @@ const Students = () => {
 
     const id = newData.id;
 
-    const birthdate = moment(newData.birthdate).format("YYYY-MM-DD");
+    const birthdate = moment(newData.birthdate, "DD/MM/YYYY").format("YYYY-MM-DD")
+    console.log("newData.birthdate: ", newData.birthdate)
     console.log("birthdate: ", birthdate)
 
     try {

@@ -65,6 +65,7 @@ const Users = () => {
                 item.onChange(e._i)
               )
             }}
+            //formatDate={(date) => moment(date)}
             format="DD/MM/yyyy"
           />
         </MuiPickersUtilsProvider>
@@ -124,7 +125,7 @@ const Users = () => {
           email: newData.email,
           phone_number: newData.phone_number,
           password: newData.password,
-          birthdate: moment(newData.birthdate).format("YYYY-MM-DD"),
+          birthdate: moment(newData.birthdate, "DD/MM/YYYY").format("YYYY-MM-DD"),
           profile: newData.profile,
         },
         { headers }
@@ -148,6 +149,7 @@ const Users = () => {
     }
 
     const id = newData.id;
+    console.log(newData.birthdate)
 
     try {
       const response = await api.put(
@@ -159,7 +161,7 @@ const Users = () => {
           email: newData.email,
           phone_number: newData.phone_number,
           password: newData.password,
-          birthdate: moment(newData.birthdate).format("YYYY-MM-DD"),
+          birthdate: moment(newData.birthdate, "DD/MM/YYYY").format("YYYY-MM-DD"),
           profile: newData.profile,
         },
         { headers }

@@ -48,12 +48,20 @@ class UserController {
           profile,
         });
 
+        console.log("where: ", where)
+
       const users = await User.findAll({
-        where,/*
+        where,
+        order: [
+          ['name']
+        ]
+        /*
         attributes: {
           exclude: ['password']
         }*/
       });
+
+      console.log("users: ", users)
 
       return response.json(users);
   }

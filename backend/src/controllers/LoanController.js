@@ -92,6 +92,8 @@ class LoanController {
       }
     }))
 
+    console.log(_loans)
+
     return res.json(_loans);
   }
 
