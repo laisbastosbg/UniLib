@@ -3,6 +3,9 @@ const { Op } = require('sequelize');
 const moment = require('moment');
 
 const Loan = require('../models/Loan');
+const User = require('../models/User');
+const Student = require('../models/Student');
+const Book = require('../models/Book');
 
 class LoanController {
   async index(req, res) {
@@ -30,18 +33,32 @@ class LoanController {
         },
       });
 
-      let bookWhere = {};
-  
-      book &&
-        (bookWhere = {
-          ...bookWhere,
-          title: {
-            [Op.iLike]: `%${book}%`,
-          },
-        });
+    let bookWhere = {};
+
+    book &&
+      (bookWhere = {
+        ...bookWhere,
+        title: {
+          [Op.iLike]: `%${book}%`,
+        },
+      });
 
     const loans = await Loan.findAll({
       where,
+      include: [
+        {
+          model: Student,
+          attributes: ['name']
+        },
+        {
+          model: User,
+          attributes: ['name']
+        },
+        {
+          model: Book,
+          attributes: ['title']
+        },
+      ],
       order: [
         ['estimated_return_date', 'desc']
       ]
@@ -49,12 +66,12 @@ class LoanController {
 
     const today = moment();
 
-    const _loans = await Promise.all(loans.map(async (loan) => {
+    const _loans = loans.map((loan, idx) => {
       let status = "";
       let fine = 0;
 
-      if(!!loan.return_date) {
-        status = loan.estimated_return_date >= loan.return_date ? 
+      if (!!loan.return_date) {
+        status = loan.estimated_return_date >= loan.return_date ?
           "Devolvido" : "Devolvido com atraso"
       } else {
         status = loan.estimated_return_date >= today ?
@@ -65,23 +82,20 @@ class LoanController {
         let estimated_return_date = moment(loan.estimated_return_date).startOf('day');
         let return_date = loan.return_date ? moment(loan.return_date) : moment();
         let dias_de_atraso = return_date.diff(estimated_return_date, 'days');
-        
+
         fine = dias_de_atraso * 2
       }
 
-      const loan_book = await loan.getBook();
-      const book = loan_book.dataValues.title;
+      const book = loan.dataValues.Book.dataValues.title;
 
-      const loan_student = await loan.getStudent();
-      const student = loan_student.dataValues.name;
+      const student = loan.dataValues.Student.dataValues.name;
 
-      const loan_user = await loan.getUser();
-      const user = loan_user.dataValues.name;
+      const user = loan.dataValues.User.dataValues.name;
 
-      let return_date = !!loan.return_date ? 
+      let return_date = !!loan.return_date ?
         moment.utc(loan.return_date).format("DD/MM/YYYY") : "Não devolvido";
-      
-      return {
+
+      const _loan = {
         ...loan.dataValues,
         status,
         fine: fine.toFixed(2),
@@ -90,9 +104,9 @@ class LoanController {
         user,
         return_date
       }
-    }))
 
-    console.log(_loans)
+      return _loan;
+    })
 
     return res.json(_loans);
   }
@@ -143,7 +157,7 @@ class LoanController {
 
       const { id } = req.params;
       const { user } = req;
-    
+
       const {
         student_id,
         book_id
@@ -182,7 +196,6 @@ class LoanController {
       where: { student_id, return_date: null }
     })
 
-    console.log("count: ", count)
 
     return count;
   }
