@@ -5,7 +5,7 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/picker
 import Title from 'components/Text/Title';
 import Table from 'components/Table';
 
-import api from 'services/api';
+// import api from 'services/api';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -110,112 +110,112 @@ const Users = () => {
     },
   ];
 
-  const handleCreate = async (newData) => {
-    const headers = {
-      login: localStorage.getItem("login"),
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+  // const handleCreate = async (newData) => {
+  //   const headers = {
+  //     login: localStorage.getItem("login"),
+  //     Authorization: `Bearer ${localStorage.getItem("token")}`
+  //   }
 
-    try {
-      const response = await api.post(
-        `/users`,
-        {
-          login: newData.login,
-          name: newData.name,
-          cpf: newData.cpf,
-          email: newData.email,
-          phone_number: newData.phone_number,
-          password: newData.password,
-          birthdate: moment(newData.birthdate, "DD/MM/YYYY").format("YYYY-MM-DD"),
-          profile: newData.profile,
-        },
-        { headers }
-      );
+  //   try {
+  //     const response = await api.post(
+  //       `/users`,
+  //       {
+  //         login: newData.login,
+  //         name: newData.name,
+  //         cpf: newData.cpf,
+  //         email: newData.email,
+  //         phone_number: newData.phone_number,
+  //         password: newData.password,
+  //         birthdate: moment(newData.birthdate, "DD/MM/YYYY").format("YYYY-MM-DD"),
+  //         profile: newData.profile,
+  //       },
+  //       { headers }
+  //     );
 
-      if (response.status !== 201) {
-        setOpen(true);
-        setErrorText(response.data.error);
-      }
+  //     if (response.status !== 201) {
+  //       setOpen(true);
+  //       setErrorText(response.data.error);
+  //     }
 
-      fetchData(data);
-    } catch (error) {
-      alert(error)
-    }
-  }
+  //     fetchData(data);
+  //   } catch (error) {
+  //     alert(error)
+  //   }
+  // }
 
-  const handleEdit = async (newData, oldData) => {
-    const headers = {
-      login: localStorage.getItem("login"),
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+  // const handleEdit = async (newData, oldData) => {
+  //   const headers = {
+  //     login: localStorage.getItem("login"),
+  //     Authorization: `Bearer ${localStorage.getItem("token")}`
+  //   }
 
-    const id = newData.id;
-    console.log(newData.birthdate)
+  //   const id = newData.id;
+  //   console.log(newData.birthdate)
 
-    try {
-      const response = await api.put(
-        `/users/${id}`,
-        {
-          login: newData.login,
-          name: newData.name,
-          cpf: newData.cpf,
-          email: newData.email,
-          phone_number: newData.phone_number,
-          password: newData.password,
-          birthdate: moment(newData.birthdate, "DD/MM/YYYY").format("YYYY-MM-DD"),
-          profile: newData.profile,
-        },
-        { headers }
-      );
+  //   try {
+  //     const response = await api.put(
+  //       `/users/${id}`,
+  //       {
+  //         login: newData.login,
+  //         name: newData.name,
+  //         cpf: newData.cpf,
+  //         email: newData.email,
+  //         phone_number: newData.phone_number,
+  //         password: newData.password,
+  //         birthdate: moment(newData.birthdate, "DD/MM/YYYY").format("YYYY-MM-DD"),
+  //         profile: newData.profile,
+  //       },
+  //       { headers }
+  //     );
 
-      if (response.status !== 200) {
-        setOpen(true);
-        setErrorText(response.data.error);
-      }
+  //     if (response.status !== 200) {
+  //       setOpen(true);
+  //       setErrorText(response.data.error);
+  //     }
 
-      fetchData(data);
-    } catch (error) {
-      alert(error)
-    }
-  }
+  //     fetchData(data);
+  //   } catch (error) {
+  //     alert(error)
+  //   }
+  // }
 
-  const handleDelete = async (oldData) => {
-    const headers = {
-      login: localStorage.getItem("login"),
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+  // const handleDelete = async (oldData) => {
+  //   const headers = {
+  //     login: localStorage.getItem("login"),
+  //     Authorization: `Bearer ${localStorage.getItem("token")}`
+  //   }
 
-    const id = oldData.id;
+  //   const id = oldData.id;
 
-    try {
-      const response = await api.delete(
-        `/users/${id}`,
-        { headers }
-      );
+  //   try {
+  //     const response = await api.delete(
+  //       `/users/${id}`,
+  //       { headers }
+  //     );
 
-      if (response.status !== 204) {
-        setOpen(true);
-        setErrorText(response.data.error);
-      }
+  //     if (response.status !== 204) {
+  //       setOpen(true);
+  //       setErrorText(response.data.error);
+  //     }
 
-      fetchData(data);
-    } catch (error) {
-      alert(error)
-    }
-  }
+  //     fetchData(data);
+  //   } catch (error) {
+  //     alert(error)
+  //   }
+  // }
 
   const fetchData = async () => {
-    try {
-      const headers = {
-        login: localStorage.getItem("login"),
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-      const response = await api.get("/users", { headers });
+    // try {
+    //   const headers = {
+    //     login: localStorage.getItem("login"),
+    //     Authorization: `Bearer ${localStorage.getItem("token")}`
+    //   }
+    //   const response = await api.get("/users", { headers });
   
-      setData(response.data)
-    } catch(error) {
+    //   setData(response.data)
+    // } catch(error) {
       setData(users)
-    }
+    // }
   }
 
   useEffect(() => {

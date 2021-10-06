@@ -15,7 +15,7 @@ import { Image, Paper } from './styles';
 
 import Logo from 'assets/Logo.png';
 
-import api from 'services/api';
+// import api from 'services/api';
 
 const LoginForm = ({ setErrorText, setOpen }) => {
   const [login, setLogin] = useState("");
@@ -47,27 +47,27 @@ const LoginForm = ({ setErrorText, setOpen }) => {
       password
     }
 
-    try {
-      const response = await api.post("users/auth", params);
-      const { data, status } = response;
+    // try {
+    //   const response = await api.post("users/auth", params);
+    //   const { data, status } = response;
 
-      localStorage.setItem("auth", data.auth);
-      localStorage.setItem("profile", data.profile);
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("login", data.login);
-      localStorage.setItem("id", data.id);
+    //   localStorage.setItem("auth", data.auth);
+    //   localStorage.setItem("profile", data.profile);
+    //   localStorage.setItem("token", data.token);
+    //   localStorage.setItem("login", data.login);
+    //   localStorage.setItem("id", data.id);
 
-      setOpen(true)
-      setErrorText(data.error)
+    //   setOpen(true)
+    //   setErrorText(data.error)
 
-      if (status === 200) {
-        history.push("/emprestimos")
-      } else if (status === 401) {
-        setPasswordError(true)
-      } else if (status === 404) {
-        setLoginError(true)
-      }
-    } catch(error) {
+    //   if (status === 200) {
+    //     history.push("/emprestimos")
+    //   } else if (status === 401) {
+    //     setPasswordError(true)
+    //   } else if (status === 404) {
+    //     setLoginError(true)
+    //   }
+    // } catch(error) {
       const status = 200;
       const data = {
         auth: true,
@@ -92,7 +92,7 @@ const LoginForm = ({ setErrorText, setOpen }) => {
       } else if (status === 404) {
         setLoginError(true)
       }
-    }
+    // }
   }
 
   return (

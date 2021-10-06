@@ -5,7 +5,7 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/picker
 import Title from 'components/Text/Title';
 import Table from 'components/Table';
 
-import api from 'services/api';
+// import api from 'services/api';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -83,114 +83,114 @@ const Students = () => {
     },
   ];
 
-  const handleCreate = async (newData) => {
-    const headers = {
-      login: localStorage.getItem("login"),
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+  // const handleCreate = async (newData) => {
+  //   const headers = {
+  //     login: localStorage.getItem("login"),
+  //     Authorization: `Bearer ${localStorage.getItem("token")}`
+  //   }
 
-    const birthdate = moment(newData.birthdate, "DD/MM/YYYY").format("YYYY-MM-DD")
-    console.log("birthdate: ", newData.birthdate)
+  //   const birthdate = moment(newData.birthdate, "DD/MM/YYYY").format("YYYY-MM-DD")
+  //   console.log("birthdate: ", newData.birthdate)
 
-    try {
-      const response = await api.post(
-        `/students`,
-        {
-          name: newData.name,
-          registration: newData.registration,
-          birthdate,
-          course: newData.course,
-          email: newData.email,
-          phone_number: newData.phone_number,
-        },
-        { headers }
-      );
+  //   try {
+  //     const response = await api.post(
+  //       `/students`,
+  //       {
+  //         name: newData.name,
+  //         registration: newData.registration,
+  //         birthdate,
+  //         course: newData.course,
+  //         email: newData.email,
+  //         phone_number: newData.phone_number,
+  //       },
+  //       { headers }
+  //     );
 
-      if (response.status !== 201) {
-        setOpen(true);
-        setErrorText(response.data.error);
-      }
+  //     if (response.status !== 201) {
+  //       setOpen(true);
+  //       setErrorText(response.data.error);
+  //     }
 
-      fetchData(data);
-    } catch (error) {
-      alert(error)
-    }
-  }
+  //     fetchData(data);
+  //   } catch (error) {
+  //     alert(error)
+  //   }
+  // }
 
-  const handleEdit = async (newData, oldData) => {
-    const headers = {
-      login: localStorage.getItem("login"),
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+  // const handleEdit = async (newData, oldData) => {
+  //   const headers = {
+  //     login: localStorage.getItem("login"),
+  //     Authorization: `Bearer ${localStorage.getItem("token")}`
+  //   }
 
-    const id = newData.id;
+  //   const id = newData.id;
 
-    const birthdate = moment(newData.birthdate, "DD/MM/YYYY").format("YYYY-MM-DD")
-    console.log("newData.birthdate: ", newData.birthdate)
-    console.log("birthdate: ", birthdate)
+  //   const birthdate = moment(newData.birthdate, "DD/MM/YYYY").format("YYYY-MM-DD")
+  //   console.log("newData.birthdate: ", newData.birthdate)
+  //   console.log("birthdate: ", birthdate)
 
-    try {
-      const response = await api.put(
-        `/students/${id}`,
-        {
-          name: newData.name,
-          registration: newData.registration,
-          birthdate,
-          course: newData.course,
-          email: newData.email,
-          phone_number: newData.phone_number,
-        },
-        { headers }
-      );
+  //   try {
+  //     const response = await api.put(
+  //       `/students/${id}`,
+  //       {
+  //         name: newData.name,
+  //         registration: newData.registration,
+  //         birthdate,
+  //         course: newData.course,
+  //         email: newData.email,
+  //         phone_number: newData.phone_number,
+  //       },
+  //       { headers }
+  //     );
 
-      if (response.status !== 200) {
-        setOpen(true);
-        setErrorText(response.data.error);
-      }
+  //     if (response.status !== 200) {
+  //       setOpen(true);
+  //       setErrorText(response.data.error);
+  //     }
 
-      fetchData(data);
-    } catch (error) {
-      alert(error)
-    }
-  }
+  //     fetchData(data);
+  //   } catch (error) {
+  //     alert(error)
+  //   }
+  // }
 
-  const handleDelete = async (oldData) => {
-    const headers = {
-      login: localStorage.getItem("login"),
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+  // const handleDelete = async (oldData) => {
+  //   const headers = {
+  //     login: localStorage.getItem("login"),
+  //     Authorization: `Bearer ${localStorage.getItem("token")}`
+  //   }
 
-    const id = oldData.id;
+  //   const id = oldData.id;
 
-    try {
-      const response = await api.delete(
-        `/students/${id}`,
-        { headers }
-      );
+  //   try {
+  //     const response = await api.delete(
+  //       `/students/${id}`,
+  //       { headers }
+  //     );
 
-      if (response.status !== 204) {
-        setOpen(true);
-        setErrorText(response.data.error);
-      }
+  //     if (response.status !== 204) {
+  //       setOpen(true);
+  //       setErrorText(response.data.error);
+  //     }
 
-      fetchData(data);
-    } catch (error) {
-      alert(error)
-    }
-  }
+  //     fetchData(data);
+  //   } catch (error) {
+  //     alert(error)
+  //   }
+  // }
 
   const fetchData = async () => {
-    try {
-      const headers = {
-        login: localStorage.getItem("login"),
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-      const response = await api.get("/students", { headers });
+    // try {
+    //   const headers = {
+    //     login: localStorage.getItem("login"),
+    //     Authorization: `Bearer ${localStorage.getItem("token")}`
+    //   }
+    //   const response = await api.get("/students", { headers });
   
-      setData(response.data)
-    } catch(error) {
+    //   setData(response.data)
+    // } catch(error) {
       setData(students)
-    }
+    // }
   } 
 
   useEffect(() => {

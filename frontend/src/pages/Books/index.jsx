@@ -4,7 +4,7 @@ import Title from 'components/Text/Title';
 import Table from 'components/Table';
 import DetailPanel from 'components/DetailPanel';
 
-import api from 'services/api';
+// import api from 'services/api';
 
 import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -82,109 +82,109 @@ const Books = () => {
     },
   ];
 
-  const handleCreate = async (newData) => {
-    const headers = {
-      login: localStorage.getItem("login"),
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+  // const handleCreate = async (newData) => {
+  //   const headers = {
+  //     login: localStorage.getItem("login"),
+  //     Authorization: `Bearer ${localStorage.getItem("token")}`
+  //   }
 
-    try {
-      const response = await api.post(
-        `/books`,
-        {
-          title: newData.title,
-          author: newData.author,
-          publisher: newData.publisher,
-          isbn: newData.isbn,
-          edition: newData.edition,
-          synopsis: newData.synopsis,
-        },
-        { headers }
-      );
+  //   try {
+  //     const response = await api.post(
+  //       `/books`,
+  //       {
+  //         title: newData.title,
+  //         author: newData.author,
+  //         publisher: newData.publisher,
+  //         isbn: newData.isbn,
+  //         edition: newData.edition,
+  //         synopsis: newData.synopsis,
+  //       },
+  //       { headers }
+  //     );
 
-      if (response.status !== 201) {
-        setOpen(true);
-        setErrorText(response.data.error);
-      }
+  //     if (response.status !== 201) {
+  //       setOpen(true);
+  //       setErrorText(response.data.error);
+  //     }
 
-      console.log("response: ", response)
+  //     console.log("response: ", response)
 
-      fetchData(data);
-    } catch (error) {
-      alert(error)
-    }
-  }
+  //     fetchData(data);
+  //   } catch (error) {
+  //     alert(error)
+  //   }
+  // }
 
-  const handleEdit = async (newData, oldData) => {
-    const headers = {
-      login: localStorage.getItem("login"),
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+  // const handleEdit = async (newData, oldData) => {
+  //   const headers = {
+  //     login: localStorage.getItem("login"),
+  //     Authorization: `Bearer ${localStorage.getItem("token")}`
+  //   }
 
-    const id = newData.id;
+  //   const id = newData.id;
 
-    try {
-      const response = await api.put(
-        `/books/${id}`,
-        {
-          title: newData.title,
-          author: newData.author,
-          publisher: newData.publisher,
-          isbn: newData.isbn,
-          edition: newData.edition,
-          synopsis: newData.synopsis,
-        },
-        { headers }
-      );
+  //   try {
+  //     const response = await api.put(
+  //       `/books/${id}`,
+  //       {
+  //         title: newData.title,
+  //         author: newData.author,
+  //         publisher: newData.publisher,
+  //         isbn: newData.isbn,
+  //         edition: newData.edition,
+  //         synopsis: newData.synopsis,
+  //       },
+  //       { headers }
+  //     );
 
-      if (response.status !== 200) {
-        setOpen(true);
-        setErrorText(response.data.error);
-      }
+  //     if (response.status !== 200) {
+  //       setOpen(true);
+  //       setErrorText(response.data.error);
+  //     }
 
-      fetchData(data);
-    } catch (error) {
-      alert(error)
-    }
-  }
+  //     fetchData(data);
+  //   } catch (error) {
+  //     alert(error)
+  //   }
+  // }
 
-  const handleDelete = async (oldData) => {
-    const headers = {
-      login: localStorage.getItem("login"),
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+  // const handleDelete = async (oldData) => {
+  //   const headers = {
+  //     login: localStorage.getItem("login"),
+  //     Authorization: `Bearer ${localStorage.getItem("token")}`
+  //   }
 
-    const id = oldData.id;
+  //   const id = oldData.id;
 
-    try {
-      const response = await api.delete(
-        `/books/${id}`,
-        { headers }
-      );
+  //   try {
+  //     const response = await api.delete(
+  //       `/books/${id}`,
+  //       { headers }
+  //     );
 
-      if (response.status !== 204) {
-        setOpen(true);
-        setErrorText(response.data.error);
-      }
+  //     if (response.status !== 204) {
+  //       setOpen(true);
+  //       setErrorText(response.data.error);
+  //     }
 
-      fetchData(data);
-    } catch (error) {
-      alert(error)
-    }
-  }
+  //     fetchData(data);
+  //   } catch (error) {
+  //     alert(error)
+  //   }
+  // }
 
   const fetchData = async () => {
-    try {
-      const headers = {
-        login: localStorage.getItem("login"),
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-      const response = await api.get("/books", { headers });
+    // try {
+    //   const headers = {
+    //     login: localStorage.getItem("login"),
+    //     Authorization: `Bearer ${localStorage.getItem("token")}`
+    //   }
+    //   const response = await api.get("/books", { headers });
   
-      setData(response.data)
-    } catch (error) {
+    //   setData(response.data)
+    // } catch (error) {
       setData(books)
-    }
+    // }
   }
 
   useEffect(() => {

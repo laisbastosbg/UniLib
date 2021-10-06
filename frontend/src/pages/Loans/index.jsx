@@ -7,7 +7,7 @@ import BooksAutoComplete from 'components/AutoComplete/BooksAutoComplete';
 import StudentsAutoComplete from 'components/AutoComplete/StudentsAutoComplete';
 import Switch from 'components/Switch';
 
-import api from 'services/api';
+// import api from 'services/api';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -87,101 +87,101 @@ const Loans = () => {
     },
   ];
 
-  const handleCreate = async (newData) => {
-    const headers = {
-      login: localStorage.getItem("login"),
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+  // const handleCreate = async (newData) => {
+  //   const headers = {
+  //     login: localStorage.getItem("login"),
+  //     Authorization: `Bearer ${localStorage.getItem("token")}`
+  //   }
 
-    const student_id = newData.student.id;
-    const book_id = newData.book.id;
-    const user_id = localStorage.getItem("id");
+  //   const student_id = newData.student.id;
+  //   const book_id = newData.book.id;
+  //   const user_id = localStorage.getItem("id");
 
-    try {
-      const response = await api.post(
-        `/loans`,
-        {
-          student_id,
-          book_id,
-          user_id
-        },
-        { headers }
-      );
+  //   try {
+  //     const response = await api.post(
+  //       `/loans`,
+  //       {
+  //         student_id,
+  //         book_id,
+  //         user_id
+  //       },
+  //       { headers }
+  //     );
 
-      if (response.status !== 201) {
-        setOpen(true);
-        setErrorText(response.data.error);
-      }
+  //     if (response.status !== 201) {
+  //       setOpen(true);
+  //       setErrorText(response.data.error);
+  //     }
 
-      fetchData(data);
-    } catch (error) {
-      alert(error)
-    }
-  }
+  //     fetchData(data);
+  //   } catch (error) {
+  //     alert(error)
+  //   }
+  // }
 
-  const handleEdit = async (newData, oldData) => {
-    const headers = {
-      login: localStorage.getItem("login"),
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+  // const handleEdit = async (newData, oldData) => {
+  //   const headers = {
+  //     login: localStorage.getItem("login"),
+  //     Authorization: `Bearer ${localStorage.getItem("token")}`
+  //   }
 
-    const id = newData.id;
+  //   const id = newData.id;
 
-    try {
-      const response = await api({
-        method: 'patch',
-        url: `/loans/${id}`,
-        headers
-      });
+  //   try {
+  //     const response = await api({
+  //       method: 'patch',
+  //       url: `/loans/${id}`,
+  //       headers
+  //     });
 
-      if (response.status !== 200) {
-        setOpen(true);
-        setErrorText(response.data.error);
-      }
+  //     if (response.status !== 200) {
+  //       setOpen(true);
+  //       setErrorText(response.data.error);
+  //     }
 
-      fetchData(data);
-    } catch (error) {
-      alert(error)
-    }
-  }
+  //     fetchData(data);
+  //   } catch (error) {
+  //     alert(error)
+  //   }
+  // }
 
-  const handleDelete = async (oldData) => {
-    const headers = {
-      login: localStorage.getItem("login"),
-      Authorization: `Bearer ${localStorage.getItem("token")}`
-    }
+  // const handleDelete = async (oldData) => {
+  //   const headers = {
+  //     login: localStorage.getItem("login"),
+  //     Authorization: `Bearer ${localStorage.getItem("token")}`
+  //   }
 
-    const id = oldData.id;
+  //   const id = oldData.id;
 
-    try {
-      const response = await api.delete(
-        `/loans/${id}`,
-        { headers }
-      );
+  //   try {
+  //     const response = await api.delete(
+  //       `/loans/${id}`,
+  //       { headers }
+  //     );
 
-      if (response.status !== 204) {
-        setOpen(true);
-        setErrorText(response.data.error);
-      }
+  //     if (response.status !== 204) {
+  //       setOpen(true);
+  //       setErrorText(response.data.error);
+  //     }
 
-      fetchData(data);
-    } catch (error) {
-      alert(error)
-    }
-  }
+  //     fetchData(data);
+  //   } catch (error) {
+  //     alert(error)
+  //   }
+  // }
 
   const fetchData = async () => {
-    try {
-      const headers = {
-        login: localStorage.getItem("login"),
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-      const response = await api.get("/loans", { headers });
+    // try {
+    //   const headers = {
+    //     login: localStorage.getItem("login"),
+    //     Authorization: `Bearer ${localStorage.getItem("token")}`
+    //   }
+    //   const response = await api.get("/loans", { headers });
   
-      setData(response.data)
-    } catch(error) {
+    //   setData(response.data)
+    // } catch(error) {
       setData(loans)
-    }
+    // }
   }
 
   useEffect(() => {
