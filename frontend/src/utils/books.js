@@ -1,0 +1,93 @@
+module.exports = [
+  {
+    "id": 10,
+    "title": "A Cadeira de Prata",
+    "author": "C. S. Lewis",
+    "publisher": "Intrinseca",
+    "synopsis": "Lorem Ipsum.",
+    "edition": "3",
+    "isbn": "978-8594542222",
+    "createdAt": "2021-09-07T05:09:37.365Z",
+    "updatedAt": "2021-09-07T05:09:37.365Z",
+    "deletedAt": null,
+    "status": "20/10/2021"
+  },
+  {
+    "id": 1,
+    "title": "Alice no País das Maravilhas",
+    "author": "Lewis Carroll",
+    "publisher": "Darkside",
+    "synopsis": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In hac habitasse platea dictumst vestibulum rhoncus. Risus nec feugiat in fermentum posuere urna nec tincidunt. Quis eleifend quam adipiscing vitae proin. Tristique et egestas quis ipsum suspendisse ultrices gravida. In nulla posuere sollicitudin aliquam ultrices sagittis orci a. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. Ullamcorper morbi tincidunt ornare massa. Commodo elit at imperdiet dui accumsan. Nulla aliquet porttitor lacus luctus accumsan tortor posuere.\n\nViverra nibh cras pulvinar mattis nunc. Tellus pellentesque eu tincidunt tortor aliquam nulla. Proin libero nunc consequat interdum varius sit. Interdum varius sit amet mattis vulputate enim nulla aliquet. Pretium lectus quam id leo in vitae turpis massa sed. Nisl purus in mollis nunc sed id semper risus. Massa vitae tortor condimentum lacinia quis vel eros donec ac. Pretium aenean pharetra magna ac p",
+    "edition": "1",
+    "isbn": "978-8594541758",
+    "createdAt": "2021-09-04T19:14:04.960Z",
+    "updatedAt": "2021-09-05T20:08:24.900Z",
+    "deletedAt": null,
+    "status": "20/09/2021"
+  },
+  {
+    "id": 6,
+    "title": "A Pirâmide Vermelha",
+    "author": "Rick Riordan",
+    "publisher": "Intrínseca",
+    "synopsis": " Desde a morte da mãe, seis anos atrás, Carter Kane viaja o mundo com o pai, o egiptólogo Dr. Julius Kane. Ele não frequenta a escola e seus pertences cabem em uma única mala. Enquanto isso, Sadie, sua irmã mais nova, é criada pelos avós em Londres. Ela tem tudo o que Carter queria: casa, amigos e uma vida \"normal\". E ele, o que ela mais deseja: conviver com o pai. Depois de tanto tempo separados, os irmãos não tinham praticamente mais nada em comum.\n\nAté que na noite de Natal, em uma visita ao British Museum, o pai faz uma estranha promessa: tudo voltará a ser como antes. Mas seu plano dá errado, e os irmãos acabam assistindo ao momento em que um personagem misterioso desaparece com o egiptólogo e provoca uma explosão magnífica. ",
+    "edition": "1",
+    "isbn": "978-8598078977",
+    "createdAt": "2021-09-06T01:58:37.717Z",
+    "updatedAt": "2021-09-06T01:58:37.717Z",
+    "deletedAt": null,
+    "status": "Disponível"
+  },
+  {
+    "id": 2,
+    "title": "O castelo animado",
+    "author": " Diana Wynne Jones",
+    "publisher": "Galera",
+    "synopsis": "Surpresas podem se esconder sob uma cara de mau, um rosto enrugado ou um castelo encantado... Certo dia, enquanto trabalhava entediada na chapelaria da família, a jovem Sophie é surpreendida pela perversa Bruxa das Terras Desoladas. Por motivos que ela desconhece, a Bruxa a transforma numa velha de 90 anos, e Sophie não vê outra saída senão fugir para evitar a dor de não ser reconhecida por suas irmãs. Vagando sem rumo, a “jovem senhora” acaba na porta dos fundos do castelo do terrível Mago Howl, conhecido por devorar o coração das moças do povoado. Assim começa a mágica aventura de O castelo animado. Sophie, Howl, Calcifer e todos os personagens desta história estão prontos para mostrar que é possível encontrar humanidade e compaixão dentro de cada um.",
+    "edition": "1",
+    "isbn": "978-8501075468",
+    "createdAt": "2021-09-05T21:22:36.848Z",
+    "updatedAt": "2021-09-05T21:22:36.848Z",
+    "deletedAt": null,
+    "status": "20/10/2021"
+  },
+  {
+    "id": 4,
+    "title": "O Hobbit",
+    "author": "J. R. R. Tolkien",
+    "publisher": "HarperCollins",
+    "synopsis": "Bilbo Bolseiro era um dos mais respeitáveis hobbits de todo o Condado até que, um dia, o mago Gandalf bate à sua porta. A partir de então, toda sua vida pacata e campestre soprando anéis de fumaça com seu belo cachimbo começa a mudar. Ele é convocado a participar de uma aventura por ninguém menos do que Thorin Escudo-de-Carvalho, um príncipe do poderoso povo dos Anãos.\nEsta jornada fará Bilbo, Gandalf e 13 anãos atravessarem a Terra-média, passando por inúmeros perigos, sejam eles, os imensos trols, as Montanhas Nevoentas infestadas de gobelins ou a muito antiga e misteriosa Trevamata, até chegarem (se conseguirem) na Montanha Solitária. Lá está um incalculável tesouro, mas há um porém. Deitado em cima dele está Smaug, o Dourado, um dragão malicioso que... bem, você terá que ler e descobrir.",
+    "edition": "1",
+    "isbn": "978-8595084742",
+    "createdAt": "2021-09-06T01:51:58.244Z",
+    "updatedAt": "2021-09-06T01:51:58.244Z",
+    "deletedAt": null,
+    "status": "22/09/2021"
+  },
+  {
+    "id": 9,
+    "title": "O leão, a feiticeira e o guarda-roupa",
+    "author": "C. S. L.",
+    "publisher": "WMF Martins Fontes",
+    "synopsis": "'Dizem que Aslam está a caminho. Talvez já tenha chegado', sussurrou o Castor. Edmundo experimentou uma misteriosa sensação de horror. Pedro sentiu-se valente e vigoroso. Para Susana, foi como se uma música deliciosa tivesse enchido o ar. E Lúcia teve aquele mesmo sentimento que nos desperta a chegada do verão. Assim, no coração da terra encantada de Nárnia, as crianças lançaram-se na mais excitante e mágica aventura que alguém já escreveu.",
+    "edition": "1",
+    "isbn": "978-8578270889",
+    "createdAt": "2021-09-07T00:00:17.473Z",
+    "updatedAt": "2021-09-07T00:00:51.908Z",
+    "deletedAt": null,
+    "status": "Disponível"
+  },
+  {
+    "id": 7,
+    "title": "O Mágico de Oz",
+    "author": "L. Frank Baum",
+    "publisher": "Clássicos Zahar",
+    "synopsis": "Um ciclone atinge a casa onde Dorothy vive com os tios e ela e seu cachorro Totó são levados pela ventania e param na Terra de Oz. Por lá, Dorothy faz novos amigos, vive histórias fantásticas e precisa enfrentar seus próprios medos.",
+    "edition": "bolso de luxo",
+    "isbn": "978-8537809662",
+    "createdAt": "2021-09-06T02:02:49.181Z",
+    "updatedAt": "2021-09-06T02:02:49.181Z",
+    "deletedAt": null,
+    "status": "Disponível"
+  }
+]

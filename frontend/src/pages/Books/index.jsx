@@ -14,6 +14,8 @@ import { SynopsisIcon } from './styles';
 
 const moment = require("moment");
 
+const books = require('utils/books');
+
 moment.locale("pt-br")
 
 const Books = () => {
@@ -172,13 +174,17 @@ const Books = () => {
   }
 
   const fetchData = async () => {
-    const headers = {
-      login: localStorage.getItem("login"),
-      Authorization: `Bearer ${localStorage.getItem("token")}`
+    try {
+      const headers = {
+        login: localStorage.getItem("login"),
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+      const response = await api.get("/books", { headers });
+  
+      setData(response.data)
+    } catch (error) {
+      setData(books)
     }
-    const response = await api.get("/books", { headers });
-
-    setData(response.data)
   }
 
   useEffect(() => {
@@ -200,29 +206,29 @@ const Books = () => {
           )
         }}
         editable={{
-          onRowAdd: (newData) =>
-            new Promise((resolve) => {
-              setTimeout(() => {
-                resolve();
-                handleCreate(newData);
-              }, 600);
-            }),
-          onRowUpdate: (newData, oldData) =>
-            new Promise((resolve) => {
-              setTimeout(() => {
-                resolve();
-                if (oldData) {
-                  handleEdit(newData, oldData);
-                }
-              }, 600);
-            }),
-          onRowDelete: (oldData) =>
-            new Promise((resolve) => {
-              setTimeout(() => {
-                resolve();
-                handleDelete(oldData);
-              }, 600);
-            }),
+          onRowAdd: (newData) => {},
+            // new Promise((resolve) => {
+            //   setTimeout(() => {
+            //     resolve();
+            //     handleCreate(newData);
+            //   }, 600);
+            // }),
+          onRowUpdate: (newData, oldData) => {},
+            // new Promise((resolve) => {
+            //   setTimeout(() => {
+            //     resolve();
+            //     if (oldData) {
+            //       handleEdit(newData, oldData);
+            //     }
+            //   }, 600);
+            // }),
+          onRowDelete: (oldData) => {},
+            // new Promise((resolve) => {
+            //   setTimeout(() => {
+            //     resolve();
+            //     handleDelete(oldData);
+            //   }, 600);
+            // }),
         }}
         localizationBody={{
           emptyDataSourceMessage: "Nenhum registro para exibir",
